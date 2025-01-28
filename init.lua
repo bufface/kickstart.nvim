@@ -69,15 +69,16 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 7
 
 -- Minimal number of screen lines to scroll down/up with CTRL-D/CTRL-U
 vim.opt.scroll = 5
 
+-- Word wrap
+vim.opt.wrap = false
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
-vim.keymap.set('n', ']b', '<CMD>bnext<CR>')
-vim.keymap.set('n', '[b', '<CMD>bprev<CR>')
 -- Move Lines
 vim.keymap.set('n', '<A-j>', "<cmd>execute 'move .+' . v:count1<cr>==", { desc = 'Move Down' })
 vim.keymap.set('n', '<A-k>', "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = 'Move Up' })
@@ -354,6 +355,8 @@ require('lazy').setup({
         }
       end, { desc = '[S]earch [A]ll (hidden files)' })
 
+      vim.keymap.set('n', '<leader>sc', builtin.commands, { desc = '[S]earch [C]ommands' })
+
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
@@ -464,9 +467,13 @@ require('lazy').setup({
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
-          map('<S-k>', function()
+          map('<C-k>', function()
             vim.diagnostic.open_float(nil, { scope = 'cursor' })
-          end, 'Show [D]iagnostics')
+          end, 'Show [D]iagnostics', 'i')
+
+          map('<S-k>', function()
+            vim.lsp.buf.hover()
+          end, 'Hover', 'n')
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
