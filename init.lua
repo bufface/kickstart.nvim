@@ -519,8 +519,12 @@ require('lazy').setup({ -- NOTE: Plugins can be added with a link (or for a gith
     -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
     {
         'mason-org/mason.nvim',
+        version = "^1.0.0",
         opts = {}
-    }, 'mason-org/mason-lspconfig.nvim', 'WhoIsSethDaniel/mason-tool-installer.nvim', -- Useful status updates for LSP.
+    }, {
+        "mason-org/mason-lspconfig.nvim",
+        version = "^1.0.0"
+    }, 'WhoIsSethDaniel/mason-tool-installer.nvim', -- Useful status updates for LSP.
     {
         'j-hui/fidget.nvim',
         opts = {}
